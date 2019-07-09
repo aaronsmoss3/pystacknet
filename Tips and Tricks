@@ -1,0 +1,15 @@
+As a quick note, one should try a few diverse models. To my experience, a good stacking solution is often composed of at least:
+
+2 or 3 GBMs (one with low depth, one with medium and one with high)
+
+1 or 2 Random Forests (again as diverse as possible–one low depth, one high)
+
+1 or 2 NNs (one deeper, one smaller)
+
+1 linear model
+
+Tip: To tune a single model, one may choose an algorithm for the first layer and a dummy one for the second layer. StackNet expects at least two algorithms, so with this format the user can visualize the performance of single algorithm inside the K-fold. For example, if I wanted to tune a Random Forest Classifier, I would put it in the first line (layer) and also put any model (let’s say Logistic Regression) in the second layer and could break the process immediately after the first layer kfold is done:
+
+RandomForestClassifier bootstrap:false estimators:100 threads:5
+LogisticRegression verbose:false
+
